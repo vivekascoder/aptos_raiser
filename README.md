@@ -2,9 +2,14 @@
 
 ## Things to so today.
 
-- [ ] A resource account will keep the funds.
-- [ ] Users should be able to claim their funds from this resource account.
-- [ ] Deploy the contracts.
+- [x] A resource account will keep the funds.
+- [x] Users should be able to claim their funds from this resource account.
+- [x] Deploy the contracts.
+- [ ] Fix the method not found issue.
+- [ ] Being able send transaction properly.
+- [ ] Fetch donate events.
+- [ ] Fetch ledger map of user.
+- [ ] Being able to send funds.
 
 ## How to publish ?
 
