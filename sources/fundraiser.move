@@ -5,10 +5,12 @@ Trying to write fundraiser contract in move lang.
 
 module aptos_raiser::fundraiser {
     use std::signer;
+    use std::debug;
+    use std::simple_map;
+    use aptos_framework::aptos_account;
     use aptos_framework::system_addresses;
     use aptos_framework::aptos_coin::{Self, AptosCoin};
     use aptos_framework::coin::{Self, MintCapability};
-    use std::simple_map;
 
     const ERROR_ALREADY_STORAGE_RESOURCE: u64 = 0;
 
@@ -74,36 +76,24 @@ module aptos_raiser::fundraiser {
         coin::destroy_burn_cap<AptosCoin>(burn_cap);
     }
 
-    // This function assumes the stake module already the capability to mint aptos coins.
-    #[test_only]
-    public fun mint_coins(amount: u64): coin::Coin<AptosCoin> acquires AptosCoinCapabilities {
-        let mint_cap = &borrow_global<AptosCoinCapabilities>(@aptos_framework).mint_cap;
-        coin::mint(amount, mint_cap)
-        // Returns Coin<AptosCoin> {value: u64}
-    }
-
-    #[test_only]
-    public fun mint(account: &signer, amount: u64) acquires AptosCoinCapabilities {
-        let account_address = signer::address_of(account);
-        if (!coin::is_account_registered<AptosCoin>(account_address)) {
-            coin::register<AptosCoin>(account);
-        };
-
-        coin::deposit(account_address, mint_coins(amount));
-    }
-
-
     #[test(aptos_framework = @aptos_framework, a = @0xAAAA, person = @0xBBBB)]
     public fun test_fund_address(aptos_framework: signer, a: signer, person: signer) acquires Storage {
-        test_aptos_coin(&aptos_framework);
-        coin::register<AptosCoin>(&a);
-
         let donate_amount = 100;
+
+        // Register accounts.
+        aptos_account::create_account(signer::address_of(&a));
+        aptos_account::create_account(signer::address_of(&person));
+
+        // Setup AptosCoin for testing.
+        test_aptos_coin(&aptos_framework);
+
         // Allocate Storage.
         publish_storage(&person);
 
         // Give some test AptosCoin to `a`.
         aptos_coin::mint(&aptos_framework, signer::address_of(&a), donate_amount);
+
+        debug::print(&coin::balance<AptosCoin>(signer::address_of(&a)));
 
         assert!(coin::balance<AptosCoin>(signer::address_of(&a)) > 0, 10);
 
