@@ -1,6 +1,7 @@
 [package]
-name = 'aptos_raiser'
+name = 'raise_money'
 version = '1.0.0'
+upgrade_policy = "immutable"
 
 [dependencies.AptosFramework]
 git = 'https://github.com/aptos-labs/aptos-core.git'
@@ -8,5 +9,5 @@ rev = 'main'
 subdir = 'aptos-move/framework/aptos-framework'
 
 [addresses]
-aptos_raiser = "0x4"
+raise_money = "_"
 aptos_framework = "0x1"

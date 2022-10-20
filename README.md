@@ -6,55 +6,26 @@
 - [ ] Users should be able to claim their funds from this resource account.
 - [ ] Deploy the contracts.
 
-## Error that I'm getting for the test `test_fund_address`.
+## How to publish ?
 
+```bash
+aptos move publish --named-addresses aptos_raiser=default --estimate-max-gas
 ```
-INCLUDING DEPENDENCY AptosFramework
-INCLUDING DEPENDENCY AptosStdlib
-INCLUDING DEPENDENCY MoveStdlib
-BUILDING aptos_raiser
-Running Move unit tests
-[ FAIL    ] 0x4::fundraiser::test_fund_address
 
-Test failures:
+## Deployed info
 
-Failures in 0x4::fundraiser:
-
-┌── test_fund_address ──────
-│ ITE: An unknown error was reported. Location: error[E11001]: test failure
-│     ┌─ /Users/vivekascoder/.move/https___github_com_aptos-labs_aptos-core_git_main/aptos-move/framework/aptos-framework/sources/account.move:492:23
-│     │
-│ 491 │     public(friend) fun register_coin<CoinType>(account_addr: address) acquires Account {
-│     │                        ------------- In this function in 0x1::account
-│ 492 │         let account = borrow_global_mut<Account>(account_addr);
-│     │                       ^^^^^^^^^^^^^^^^^
-│
-│
-│ VMError (if there is one): VMError {
-│     major_status: MISSING_DATA,
-│     sub_status: None,
-│     message: None,
-│     exec_state: None,
-│     location: Module(
-│         ModuleId {
-│             address: 0000000000000000000000000000000000000000000000000000000000000001,
-│             name: Identifier(
-│                 "account",
-│             ),
-│         },
-│     ),
-│     indices: [],
-│     offsets: [
-│         (
-│             FunctionDefinitionIndex(24),
-│             1,
-│         ),
-│     ],
-│ }
-└──────────────────
-
-Test result: FAILED. Total tests: 1; passed: 0; failed: 1
+```json
 {
-  "Error": "Move unit tests failed"
+  "Result": {
+    "transaction_hash": "0xd0d2a57b5bb38b63690b87c8958f56eb6a691cbc9c8fc09a9ff4b1ce266a06e8",
+    "gas_used": 7764,
+    "gas_unit_price": 100,
+    "sender": "3b3f1ebdfed349c2c5dd79e06b942ec1de07818232a69e75379738557d476679",
+    "sequence_number": 1,
+    "success": true,
+    "timestamp_us": 1666264815182729,
+    "version": 12272151,
+    "vm_status": "Executed successfully"
+  }
 }
 ```

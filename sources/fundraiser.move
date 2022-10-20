@@ -3,7 +3,7 @@ Trying to write fundraiser contract in move lang.
 **/
 
 
-module aptos_raiser::fundraiser {
+module raise_money::Fundraiser {
     use std::signer;
     use std::debug;
     use std::simple_map;
